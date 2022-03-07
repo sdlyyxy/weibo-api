@@ -113,6 +113,7 @@ class Statuses(Base):
             status.is_paid = mblog.raw_data().get('is_paid')
             status.user = People(mblog.user.id, None, self._session)
             status.pic_urls = [pic.get('url') for pic in mblog.raw_data().get('pics', [])]
+            status.retweeted_status=mblog.raw_data().get('retweeted_status')
             yield status
 
     def page_from_to(self, from_page, to_page):
