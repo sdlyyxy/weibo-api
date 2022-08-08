@@ -25,24 +25,25 @@ class Status(Base):
         return self._id
 
     @property
-    @normal_attr()
+    @streaming()
+    def data(self):
+        return None
+
+    @property
     def longTextContent(self):
-        return ''
+        return self.data.longTextContent
 
     @property
-    @normal_attr()
     def attitudes_count(self):
-        return 0
+        return self.data.attitudes_count
 
     @property
-    @normal_attr()
     def comments_count(self):
-        return 0
+        return self.data.comments_count
 
     @property
-    @normal_attr()
     def reposts_count(self):
-        return 0
+        return self.data.reposts_count
 
 
 class Statuses(Base):
@@ -68,19 +69,17 @@ class Statuses(Base):
         return WEIBO_LIST_URL.format(id=self._id, page_num=self._page_num)
 
     @property
-    @streaming(name_in_json='cards')
+    @streaming()
+    def data(self):
+        return None
+
+    @property
     def _cards(self):
-        return None
+        return self.data.cards
 
     @property
-    @streaming(name_in_json='cardlistInfo')
     def _cardlistInfo(self):
-        return None
-
-    @property
-    @normal_attr()
-    def test(self):
-        return None
+        return self.data.cardlistInfo
 
     @property
     def total(self):
